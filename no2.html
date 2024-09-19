@@ -81,12 +81,11 @@ function addtask(){
     const li = document.createElement("li");
     li.textContent = taskText;
 
-    li.addEventListener("click", function(){
+li.addEventListener("click", function(){
     li.classList.toggle("done");
 });
 
-li.addEventListener("contextmenu", function(event){
-                event.preventDefault(); 
+li.addEventListener("dblclick", function(){
                 const newTaskText = prompt("Edit your task:", li.firstChild.textContent);
                 if (newTaskText) {
                     li.firstChild.textContent = newTaskText;
