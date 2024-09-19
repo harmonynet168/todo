@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: linear-gradient(to right, green, yellow);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .middle {
+            text-align: center;
+        }
+
+        input {
+            font-size: 20px;
+            border: none;
+        }
+
+        button {
+            font-size: 18px;
+            border-radius: 5px;
+            background-color: gray;
+        }
+
+        li {
+            font-size: 20px;
+            list-style-type: none;
+            justify-content: space-between;
+            border: none;
+            display: flex;
+        }
+
+        span:hover {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: aliceblue;
+        }
+
+        li .done:hover {
+            background-color: aquamarine;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="middle">
+        <h1>Todo List</h1>
+        <input type="text" placeholder="Enter Task Here" id="new-task">
+        <button id="add-btn">Add</button>
+        <button onclick="showList()">Show list</button>
+        <button onclick="searchList()">Search</button>
+        <ul id="task-list">
+        </ul>
+    </div>
+    <script>
+        let listTask = [];
+        let listTaskBackup = [];
+        const input = document.getElementById("new-task");
+        const list = document.getElementById("task-list");
+        const button = document.getElementById("add-btn");
+
+        function showList(){
+            console.log(listTask);
+        }
+
+        function searchList(){
+            let taskText = input.value.trim(); 
+            listTask = listTaskBackup;
+            listTask = listTask.filter(c => c.includes(taskText))
+            showListInHtml();
+            //console.log(listTask);
+        }
+
+        input.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                addtask();
+            }
+        });
+
+        button.addEventListener("click", addtask);
+
+        function showListInHtml(){
+            list.innerHTML = "";
+            let html = "";
+            listTask.forEach(item => {
+                html += "<li>"+ item + "<span class='close'>x</span></li>";
+                
+                // const li = document.createElement("li");
+                
+                // li.textContent = item;
+                // const span = document.createElement("span");
+                // span.textContent = "x";
+
+                // span.classList.add("close");
+                // li.appendChild(span);
+                // list.appendChild(li);
+            });
+            list.innerHTML = html;
+
+        }
+
+        function edittask(){
+
+        }
+
+        function removetask(){
+
+        }
+
+        function addtask() {
+            const taskText = input.value.trim();
+            if (taskText === "") {
+                alert("Error! There's no task input.");
+                return;
+            }
+
+            listTask.push(taskText);
+            listTaskBackup.push(taskText);
+
+            input.value = "";
+            showListInHtml();
+        }
+    </script>
+</body>
+
+</html>
